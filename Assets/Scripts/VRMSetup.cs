@@ -83,12 +83,10 @@ public class VRMSetup : MonoBehaviour
     private void ModelLoad() {
         m_context.LoadAsync(_ =>
             {
-                Debug.Log("Start of LoadAsync");
                 m_context.ShowMeshes();
                 GameObject root = m_context.Root;
                 root.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
                 root.SetActive(true);
-                Debug.Log("Instance created");
             }, Debug.LogError);
     }
 }
