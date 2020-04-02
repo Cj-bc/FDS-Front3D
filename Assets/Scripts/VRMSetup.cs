@@ -19,6 +19,8 @@ public class VRMSetup : MonoBehaviour
 
     VRMImporterContext m_context;
 
+    GameObject loadedVRM = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,10 @@ public class VRMSetup : MonoBehaviour
             , new Vector3(Screen.width/480f, Screen.height/360f, 1f)
             );
 
-        if(GUI.Button(new Rect(10, 10, 50, 50), "Load VRM")) {
+        if(GUI.Button(new Rect(10, 10, 50, 20), "Load VRM")) {
+            if(loadedVRM != null)
+                UnloadCurrentVRM();
+
             string[] pathes = StandaloneFileBrowser.OpenFilePanel("Load VRM", "", "vrm", false);
             Debug.Log("Pathes returned");
             SetupVRMLoaderUI(pathes);
@@ -87,6 +92,15 @@ public class VRMSetup : MonoBehaviour
                 GameObject root = m_context.Root;
                 root.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
                 root.SetActive(true);
+
+                loadedVRM = root;
             }, Debug.LogError);
     }
+
+    /// <summary>Unload and destroy currently loaded VRM</summary>
+    void UnloadCurrentVRM() {
+        Destroy(loadedVRM);
+        loadedVRM = null;
+    }
+
 }
