@@ -23,6 +23,8 @@ public class VRMSetup : MonoBehaviour
 
     GameObject loadedVRM = null;
 
+    public RuntimeAnimatorController VRMdefaltAnimationController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -105,6 +107,9 @@ public class VRMSetup : MonoBehaviour
     void SetupVRM() {
                 loadedVRM.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
                 loadedVRM.SetActive(true);
+                Debug.Log("Get Aminmator component");
+                loadedVRM.GetComponent<Animator>().runtimeAnimatorController = VRMdefaltAnimationController;
+                Debug.Log("controller set");
     }
 
 
