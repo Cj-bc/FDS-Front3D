@@ -92,15 +92,23 @@ public class VRMSetup : MonoBehaviour
             {
                 m_context.ShowMeshes();
                 GameObject root = m_context.Root;
-                root.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
-                root.SetActive(true);
-
                 loadedVRM = root;
 
+                SetupVRM();
                 SetupCamera();
             }, Debug.LogError);
 
     }
+
+
+    /// <summary>Setup loaded VRM, i.e. attaching assets</summary>
+    void SetupVRM() {
+                loadedVRM.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
+                loadedVRM.SetActive(true);
+    }
+
+
+
 
     /// <summary>Move camera to aim VRM's head line</summary>
     void SetupCamera() {
