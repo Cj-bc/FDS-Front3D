@@ -19,12 +19,14 @@ public class VRMSetup : MonoBehaviour
 
     VRMImporterContext m_context;
 
+    GameObject CurrentCamera;
+
     GameObject loadedVRM = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CurrentCamera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -94,7 +96,26 @@ public class VRMSetup : MonoBehaviour
                 root.SetActive(true);
 
                 loadedVRM = root;
+
+                SetupCamera();
             }, Debug.LogError);
+
+    }
+
+    /// <summary>Move camera to aim VRM's head line</summary>
+    void SetupCamera() {
+        Transform Head = loadedVRM.transform
+                                  .Find("Root")
+                                  .Find("J_Bip_C_Hips")
+                                  .Find("J_Bip_C_Spine")
+                                  .Find("J_Bip_C_Chest")
+                                  .Find("J_Bip_C_UpperChest")
+                                  .Find("J_Bip_C_Neck")
+                                  .Find("J_Bip_C_Head");
+        Vector3 cpos = new Vector3(CurrentCamera.transform.position.x
+                                  , Head.position.y
+                                  , CurrentCamera.transform.position.z);
+        CurrentCamera.transform.position = cpos;
     }
 
     /// <summary>Unload and destroy currently loaded VRM</summary>
