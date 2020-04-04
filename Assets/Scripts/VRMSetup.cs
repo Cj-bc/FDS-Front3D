@@ -108,7 +108,10 @@ public class VRMSetup : MonoBehaviour
                 loadedVRM.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
                 loadedVRM.SetActive(true);
                 Debug.Log("Get Aminmator component");
-                loadedVRM.GetComponent<Animator>().runtimeAnimatorController = VRMdefaltAnimationController;
+                Animator vrmAnimator = loadedVRM.GetComponent<Animator>();
+                vrmAnimator.runtimeAnimatorController = VRMdefaltAnimationController;
+                vrmAnimator.SetFloat("Blend", 1.0f);
+                
                 Debug.Log("controller set");
     }
 
