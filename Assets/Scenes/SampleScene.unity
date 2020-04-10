@@ -475,7 +475,7 @@ MonoBehaviour:
   m_modalWindowPrefab: {fileID: 1417642719711440, guid: 076974e56cf73d7409fd6aec2bdef2e6,
     type: 3}
   m_language: {fileID: 0}
-  VRMdefaltAnimationController: {fileID: 9100000, guid: 0050f40e3f68f4a1fb569dec0733f8ed,
+  VRMdefaltAnimationController: {fileID: 9100000, guid: b370993367b51408986811b1c06e94f9,
     type: 2}
 --- !u!114 &1954648915
 MonoBehaviour:
