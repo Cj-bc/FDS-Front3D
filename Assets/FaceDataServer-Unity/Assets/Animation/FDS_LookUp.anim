@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LookRight
+  m_Name: FDS_LookUp
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -23,8 +23,17 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.023219422
+        outSlope: -0.023219422
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.45
+        value: -0.01082886
+        inSlope: -0.015894633
+        outSlope: -0.015894633
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -32,8 +41,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 6.8
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.02510076
+        outSlope: -0.02510076
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -41,7 +50,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: Head Turn Left-Right
+    attribute: Head Nod Down-Up
     path: 
     classID: 95
     script: {fileID: 0}
@@ -55,7 +64,7 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 56
+      attribute: 54
       script: {fileID: 0}
       typeID: 95
       customType: 8
@@ -88,8 +97,17 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.023219422
+        outSlope: -0.023219422
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.45
+        value: -0.01082886
+        inSlope: -0.015894633
+        outSlope: -0.015894633
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -97,8 +115,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 6.8
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.02510076
+        outSlope: -0.02510076
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -106,7 +124,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: Head Turn Left-Right
+    attribute: Head Nod Down-Up
     path: 
     classID: 95
     script: {fileID: 0}

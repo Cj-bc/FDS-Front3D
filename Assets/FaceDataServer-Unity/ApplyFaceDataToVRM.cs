@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Animations;
+using UnityEditor;
 using Cjbc.FaceDataServer.Type;
 using VRM;
 
@@ -17,6 +19,8 @@ namespace Cjbc.FaceDataServer.Unity {
         Transform head;
         VRMBlendShapeProxy blenderShapeProxy;
         FaceData latest;
+        Animator animator;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -31,20 +35,32 @@ namespace Cjbc.FaceDataServer.Unity {
                         .Find("J_Bip_C_Neck")
                         .Find("J_Bip_C_Head")
                         ;
+            animator = GetComponent<Animator>();
+
+            animator.SetFloat("Blend", 1.0f);
+            animator.SetFloat(FaceDataServerMenu.XRotationParameterName, 0.5f);
+            animator.SetFloat(FaceDataServerMenu.YRotationParameterName, 0.5f);
+            animator.SetFloat(FaceDataServerMenu.ZRotationParameterName, 0.5f);
         }
 
         // Update is called once per frame
         void Update()
         {
             latest = source.latest();
-            Quaternion latestRot = Quaternion.Euler( -((float)latest.FaceXRadian) * Mathf.Rad2Deg
-                                                   , ((float)latest.FaceYRadian) * Mathf.Rad2Deg
-                                                   , ((float)latest.FaceZRadian) * Mathf.Rad2Deg
-                                                   );
-            head.localRotation = Quaternion.Lerp(head.localRotation, latestRot, Mathf.Clamp(Time.time * 0.03f, 0.0f, 1.0f));
 
+            // ----- Set Face Rotation -----
+            // Model can rotate -40~40 degree.
+            // So firstly, I'll clamp
+            float x = Mathf.Clamp(-((float)latest.FaceXRadian) * Mathf.Rad2Deg, -40.0f, 40.0f);
+            float y = Mathf.Clamp( ((float)latest.FaceYRadian) * Mathf.Rad2Deg, -40.0f, 40.0f);
+            float z = Mathf.Clamp( ((float)latest.FaceZRadian) * Mathf.Rad2Deg, -40.0f, 40.0f);
+            animator.SetFloat(FaceDataServerMenu.XRotationParameterName, (x + 40f) / 80f);
+            animator.SetFloat(FaceDataServerMenu.YRotationParameterName, (y + 40f) / 80f);
+            animator.SetFloat(FaceDataServerMenu.ZRotationParameterName, (z + 40f) / 80f);
+
+
+            // ----- Set Facial Expression -----
             Dictionary<BlendShapeKey, float> face = new Dictionary<BlendShapeKey, float> {};
-
 
             // FDS define '0' to 'closing eye', '1' to 'opened eye', but UniVRM is opposit way.
             // I should convert it.
