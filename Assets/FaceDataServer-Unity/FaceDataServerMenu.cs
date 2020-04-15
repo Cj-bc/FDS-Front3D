@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+# if UNITY_EDITOR
 using UnityEditor.Animations;
 using UnityEditor;
+# endif
 using System.Linq;
 using Cjbc.FaceDataServer.Unity.Exceptions;
 
@@ -10,11 +12,12 @@ namespace Cjbc.FaceDataServer.Unity {
 
     public class FaceDataServerMenu : MonoBehaviour
     {
-        static AnimatorControllerLayer layer = null;
         public static string FDS_LayerName = "FDS_faceRotation";
         public static string XRotationParameterName = "FDS_X_Rotation";
         public static string YRotationParameterName = "FDS_Y_Rotation";
         public static string ZRotationParameterName = "FDS_Z_Rotation";
+# if UNITY_EDITOR
+        static AnimatorControllerLayer layer = null;
 
         /// <summary>Inject layer and Animation Parameters required by FDS</summary>
         [MenuItem("FaceDataServer/Inject Required Layer & Parameters")]
@@ -39,7 +42,6 @@ namespace Cjbc.FaceDataServer.Unity {
                       .Select(path => AssetDatabase.GetMainAssetTypeAtPath(path))
                       .Any(t => t == typeof(AnimatorController));
         }
-
 
 
         /// <summary>Inject FDS layer to given controller, if it doesn't have one</summary>
@@ -155,5 +157,7 @@ namespace Cjbc.FaceDataServer.Unity {
             string assetpath = AssetDatabase.GUIDToAssetPath(guid);
             return AssetDatabase.LoadAssetAtPath(assetpath, typeof(T));
         }
+# endif
+
     }
 }
