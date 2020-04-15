@@ -19,12 +19,16 @@ public class VRMSetup : MonoBehaviour
 
     VRMImporterContext m_context;
 
+    GameObject CurrentCamera;
+
     GameObject loadedVRM = null;
+
+    public RuntimeAnimatorController VRMdefaltAnimationController;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CurrentCamera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -90,11 +94,41 @@ public class VRMSetup : MonoBehaviour
             {
                 m_context.ShowMeshes();
                 GameObject root = m_context.Root;
-                root.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
-                root.SetActive(true);
-
                 loadedVRM = root;
+
+                SetupVRM();
+                SetupCamera();
             }, Debug.LogError);
+
+    }
+
+
+    /// <summary>Setup loaded VRM, i.e. attaching assets</summary>
+    void SetupVRM() {
+                loadedVRM.AddComponent<Cjbc.FaceDataServer.Unity.ApplyFaceDataToVRM>();
+                loadedVRM.SetActive(true);
+                Animator vrmAnimator = loadedVRM.GetComponent<Animator>();
+                vrmAnimator.runtimeAnimatorController = VRMdefaltAnimationController;
+                vrmAnimator.SetFloat("Blend", 1.0f);
+    }
+
+
+
+
+    /// <summary>Move camera to aim VRM's head line</summary>
+    void SetupCamera() {
+        Transform Head = loadedVRM.transform
+                                  .Find("Root")
+                                  .Find("J_Bip_C_Hips")
+                                  .Find("J_Bip_C_Spine")
+                                  .Find("J_Bip_C_Chest")
+                                  .Find("J_Bip_C_UpperChest")
+                                  .Find("J_Bip_C_Neck")
+                                  .Find("J_Bip_C_Head");
+        Vector3 cpos = new Vector3(CurrentCamera.transform.position.x
+                                  , Head.position.y
+                                  , CurrentCamera.transform.position.z);
+        CurrentCamera.transform.position = cpos;
     }
 
     /// <summary>Unload and destroy currently loaded VRM</summary>
